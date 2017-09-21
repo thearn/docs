@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8">
+    
+    <title>KStwo Distribution &mdash; SciPy v1.1.0.dev0+04759f9 Reference Guide</title>
+    
+    <link rel="stylesheet" type="text/css" href="../../_static/css/spc-bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="../../_static/css/spc-extend.css">
+    <link rel="stylesheet" href="../../_static/scipy.css" type="text/css" >
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" >
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.1.0.dev0+04759f9',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  false
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../_static/scipy-mathjax/MathJax.js?config=scipy-mathjax"></script>
+    <script type="text/javascript" src="../../_static/js/copybutton.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" >
+    <link rel="search" title="Search" href="../../search.html" >
+    <link rel="top" title="SciPy v1.1.0.dev0+04759f9 Reference Guide" href="../../index.html" >
+    <link rel="up" title="Continuous Statistical Distributions" href="continuous.html" >
+    <link rel="next" title="Laplace (Double Exponential, Bilateral Exponential) Distribution" href="continuous_laplace.html" >
+    <link rel="prev" title="KSone Distribution" href="continuous_ksone.html" > 
+  </head>
+  <body>
+
+  <div class="container">
+    <div class="header">
+    </div>
+  </div>
+
+
+    <div class="container">
+      <div class="main">
+        
+	<div class="row-fluid">
+	  <div class="span12">
+	    <div class="spc-navbar">
+              
+    <ul class="nav nav-pills pull-left">
+	
+        <li class="active"><a href="../../index.html">SciPy v1.1.0.dev0+04759f9 Reference Guide</a></li>
+	
+          <li class="active"><a href="../index.html" >SciPy Tutorial</a></li>
+          <li class="active"><a href="../stats.html" >Statistics (<code class="docutils literal"><span class="pre">scipy.stats</span></code>)</a></li>
+          <li class="active"><a href="continuous.html" accesskey="U">Continuous Statistical Distributions</a></li> 
+    </ul>
+              
+              
+    <ul class="nav nav-pills pull-right">
+      <li class="active">
+        <a href="../../genindex.html" title="General Index"
+           accesskey="I">index</a>
+      </li>
+      <li class="active">
+        <a href="../../py-modindex.html" title="Python Module Index"
+           >modules</a>
+      </li>
+      <li class="active">
+        <a href="continuous_laplace.html" title="Laplace (Double Exponential, Bilateral Exponential) Distribution"
+           accesskey="N">next</a>
+      </li>
+      <li class="active">
+        <a href="continuous_ksone.html" title="KSone Distribution"
+           accesskey="P">previous</a>
+      </li>
+    </ul>
+              
+	    </div>
+	  </div>
+	</div>
+        
+
+	<div class="row-fluid">
+      <div class="spc-rightsidebar span3">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../../index.html">
+              <img class="logo" src="../../_static/scipyshiny_small.png" alt="Logo">
+            </a></p>
+  <h3><a href="../../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">KStwo Distribution</a><ul>
+<li><a class="reference internal" href="#references">References</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="continuous_ksone.html"
+                        title="previous chapter">KSone Distribution</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="continuous_laplace.html"
+                        title="next chapter">Laplace (Double Exponential, Bilateral Exponential) Distribution</a></p>
+
+
+        </div>
+      </div>
+          <div class="span9">
+            
+        <div class="bodywrapper">
+          <div class="body" id="spc-section-body">
+            
+  <div class="section" id="kstwo-distribution">
+<span id="continuous-kstwobign"></span><h1>KStwo Distribution<a class="headerlink" href="#kstwo-distribution" title="Permalink to this headline">¶</a></h1>
+<p>This is the limiting distribution of the normalized maximum absolute differences between an
+empirical distribution function, computed from <span class="math">\(n\)</span> samples or observations,
+and a comparison (or target) cumulative distribution function.  (<code class="docutils literal"><span class="pre">ksone</span></code> is the distribution
+of the unnormalized positive differences, <span class="math">\(D_n^+\)</span>.)</p>
+<p>Writing <span class="math">\(D_n = \sup_t \left|F_{empirical,n}(t) - F_{target}(t)-\right|\)</span>,
+the normalization factor is <span class="math">\(\sqrt{n}\)</span>, and <code class="docutils literal"><span class="pre">kstwobign</span></code> is the limiting distribution
+of the <span class="math">\(\sqrt{n} D_n\)</span> values as <span class="math">\(n\rightarrow\infty\)</span>.</p>
+<p>Note that <span class="math">\(D_n=\max(D_n^+, D_n^-)\)</span>, but <span class="math">\(D_n^+\)</span> and <span class="math">\(D_n^-\)</span> are not independent.</p>
+<p><code class="docutils literal"><span class="pre">kstwobign</span></code> can also be used with the differences between two empirical distribution functions,
+for sets of observations with <span class="math">\(m\)</span> and <span class="math">\(n\)</span> samples respectively,
+where <span class="math">\(m\)</span> and <span class="math">\(n\)</span> are “big”.
+Writing <span class="math">\(D_{m,n} = \sup_t \left|F_{1,m}(t)-F_{2,n}(t)\right|\)</span>,  where
+<span class="math">\(F_{1,m}\)</span> and <span class="math">\(F_{2,n}\)</span> are the two empirical distribution functions, then
+<code class="docutils literal"><span class="pre">kstwobign</span></code> is also the limiting distribution of the <span class="math">\(\sqrt{\left(\frac{mn}{m+n}\right)D_{m,n}}\)</span> values,
+as <span class="math">\(m,n\rightarrow\infty\)</span>.</p>
+<p>There are no shape parameters, and the support is <span class="math">\(x\in\left[0,\infty\right)\)</span>.</p>
+<div class="math">
+\begin{eqnarray*}  F\left(x\right) &amp; = &amp; 1 - 2 \sum_{k=1}^{\infty} (-1)^{k-1} e^{-2k^2 x^2}\\  &amp; = &amp; \frac{\sqrt{2\pi}}{x} \sum_{k=1}^{\infty} e^{-(2k-1)^2 \pi^2/(8x^2)}\\  &amp; = &amp; 1 - \textrm{scipy.special.kolmogorov}(n, x) \\ f\left(x\right) &amp; = &amp; 8x \sum_{k=1}^{\infty} (-1)^{k-1} k^2 e^{-2k^2 x^2} \end{eqnarray*}</div><div class="section" id="references">
+<h2>References<a class="headerlink" href="#references" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>“Kolmogorov-Smirnov test”, Wikipedia
+<a class="reference external" href="https://en.wikipedia.org/wiki/Kolmogorov-Smirnov_test">https://en.wikipedia.org/wiki/Kolmogorov-Smirnov_test</a></li>
+<li>Kolmogoroff, A. “Confidence Limits for an Unknown Distribution Function.””
+<em>Ann. Math. Statist.</em> 12 (1941), no. 4, 461–463.</li>
+<li>Feller, W. “On the Kolmogorov-Smirnov Limit Theorems for Empirical Distributions.”
+<em>Ann. Math. Statist.</em> 19 (1948), no. 2, 177–189. and “Errata”  <em>Ann. Math. Statist.</em> 21 (1950), no. 2, 301–302.</li>
+</ul>
+<p>Implementation: <a class="reference internal" href="../../generated/scipy.stats.kstwobign.html#scipy.stats.kstwobign" title="scipy.stats.kstwobign"><code class="xref py py-obj docutils literal"><span class="pre">scipy.stats.kstwobign</span></code></a></p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="container container-navbar-bottom">
+      <div class="spc-navbar">
+        
+      </div>
+    </div>
+    <div class="container">
+    <div class="footer">
+    <div class="row-fluid">
+    <ul class="inline pull-left">
+      <li>
+        &copy; Copyright 2008-2016, The Scipy community.
+      </li>
+      <li>
+      Last updated on Sep 20, 2017.
+      </li>
+      <li>
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.6.3.
+      </li>
+    </ul>
+    </div>
+    </div>
+    </div>
+  </body>
+</html>

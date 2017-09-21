@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8">
+    
+    <title>KSone Distribution &mdash; SciPy v1.1.0.dev0+04759f9 Reference Guide</title>
+    
+    <link rel="stylesheet" type="text/css" href="../../_static/css/spc-bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="../../_static/css/spc-extend.css">
+    <link rel="stylesheet" href="../../_static/scipy.css" type="text/css" >
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" >
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.1.0.dev0+04759f9',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  false
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../_static/scipy-mathjax/MathJax.js?config=scipy-mathjax"></script>
+    <script type="text/javascript" src="../../_static/js/copybutton.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" >
+    <link rel="search" title="Search" href="../../search.html" >
+    <link rel="top" title="SciPy v1.1.0.dev0+04759f9 Reference Guide" href="../../index.html" >
+    <link rel="up" title="Continuous Statistical Distributions" href="continuous.html" >
+    <link rel="next" title="KStwo Distribution" href="continuous_kstwobign.html" >
+    <link rel="prev" title="Johnson SU Distribution" href="continuous_johnsonsu.html" > 
+  </head>
+  <body>
+
+  <div class="container">
+    <div class="header">
+    </div>
+  </div>
+
+
+    <div class="container">
+      <div class="main">
+        
+	<div class="row-fluid">
+	  <div class="span12">
+	    <div class="spc-navbar">
+              
+    <ul class="nav nav-pills pull-left">
+	
+        <li class="active"><a href="../../index.html">SciPy v1.1.0.dev0+04759f9 Reference Guide</a></li>
+	
+          <li class="active"><a href="../index.html" >SciPy Tutorial</a></li>
+          <li class="active"><a href="../stats.html" >Statistics (<code class="docutils literal"><span class="pre">scipy.stats</span></code>)</a></li>
+          <li class="active"><a href="continuous.html" accesskey="U">Continuous Statistical Distributions</a></li> 
+    </ul>
+              
+              
+    <ul class="nav nav-pills pull-right">
+      <li class="active">
+        <a href="../../genindex.html" title="General Index"
+           accesskey="I">index</a>
+      </li>
+      <li class="active">
+        <a href="../../py-modindex.html" title="Python Module Index"
+           >modules</a>
+      </li>
+      <li class="active">
+        <a href="continuous_kstwobign.html" title="KStwo Distribution"
+           accesskey="N">next</a>
+      </li>
+      <li class="active">
+        <a href="continuous_johnsonsu.html" title="Johnson SU Distribution"
+           accesskey="P">previous</a>
+      </li>
+    </ul>
+              
+	    </div>
+	  </div>
+	</div>
+        
+
+	<div class="row-fluid">
+      <div class="spc-rightsidebar span3">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../../index.html">
+              <img class="logo" src="../../_static/scipyshiny_small.png" alt="Logo">
+            </a></p>
+  <h3><a href="../../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">KSone Distribution</a><ul>
+<li><a class="reference internal" href="#references">References</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="continuous_johnsonsu.html"
+                        title="previous chapter">Johnson SU Distribution</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="continuous_kstwobign.html"
+                        title="next chapter">KStwo Distribution</a></p>
+
+
+        </div>
+      </div>
+          <div class="span9">
+            
+        <div class="bodywrapper">
+          <div class="body" id="spc-section-body">
+            
+  <div class="section" id="ksone-distribution">
+<span id="continuous-ksone"></span><h1>KSone Distribution<a class="headerlink" href="#ksone-distribution" title="Permalink to this headline">¶</a></h1>
+<p>This is the distribution of maximum positive differences between an
+empirical distribution function, computed from <span class="math">\(n\)</span> samples or observations,
+and a comparison (or target) cumulative distribution function.</p>
+<p>Writing <span class="math">\(D_n^+ = \sup_t \left(F_{empirical,n}(t)-F_{target}(t)\right)\)</span>,
+<code class="docutils literal"><span class="pre">ksone</span></code> is the distribution of the <span class="math">\(D_n^+\)</span> values.
+(The distribution of <span class="math">\(D_n^- = \sup_t \left(F_{target}(t)-F_{empirical,n}(t)\right)\)</span>
+differences follows the same distribution, so <code class="docutils literal"><span class="pre">ksone</span></code> can be used for one-sided tests on either side.)</p>
+<p>There is one shape parameter <span class="math">\(n\)</span>, a positive integer, and the support is <span class="math">\(x\in\left[0,1\right]\)</span>.</p>
+<div class="math">
+ \begin{eqnarray*} F\left(n, x\right) &amp; = &amp; 1 - \sum_{j=0}^{\lfloor n(1-x)\rfloor} \dbinom{n}{j} x \left(x+\frac{j}{n}\right)^{j-1} \left(1-x-\frac{j}{n}\right)^{n-j}\\ &amp; = &amp; 1 - \textrm{scipy.special.smirnov}(n, x) \\ \lim_{n \rightarrow\infty} F\left(n, \frac{x}{\sqrt n}\right) &amp; = &amp; e^{-2 x^2} \end{eqnarray*}</div><div class="section" id="references">
+<h2>References<a class="headerlink" href="#references" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>“Kolmogorov-Smirnov test”, Wikipedia
+<a class="reference external" href="https://en.wikipedia.org/wiki/Kolmogorov-Smirnov_test">https://en.wikipedia.org/wiki/Kolmogorov-Smirnov_test</a></li>
+<li>Birnbaum, Z. W.; Tingey, Fred H. “One-Sided Confidence Contours for Probability Distribution Functions.”
+<em>Ann. Math. Statist</em>. 22 (1951), no. 4, 592–596.</li>
+</ul>
+<p>Implementation: <a class="reference internal" href="../../generated/scipy.stats.ksone.html#scipy.stats.ksone" title="scipy.stats.ksone"><code class="xref py py-obj docutils literal"><span class="pre">scipy.stats.ksone</span></code></a></p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="container container-navbar-bottom">
+      <div class="spc-navbar">
+        
+      </div>
+    </div>
+    <div class="container">
+    <div class="footer">
+    <div class="row-fluid">
+    <ul class="inline pull-left">
+      <li>
+        &copy; Copyright 2008-2016, The Scipy community.
+      </li>
+      <li>
+      Last updated on Sep 20, 2017.
+      </li>
+      <li>
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.6.3.
+      </li>
+    </ul>
+    </div>
+    </div>
+    </div>
+  </body>
+</html>

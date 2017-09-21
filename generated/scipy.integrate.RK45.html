@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8">
+    
+    <title>scipy.integrate.RK45 &mdash; SciPy v1.1.0.dev0+04759f9 Reference Guide</title>
+    
+    <link rel="stylesheet" type="text/css" href="../_static/css/spc-bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="../_static/css/spc-extend.css">
+    <link rel="stylesheet" href="../_static/scipy.css" type="text/css" >
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" >
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.1.0.dev0+04759f9',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  false
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/scipy-mathjax/MathJax.js?config=scipy-mathjax"></script>
+    <script type="text/javascript" src="../_static/js/copybutton.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" >
+    <link rel="search" title="Search" href="../search.html" >
+    <link rel="top" title="SciPy v1.1.0.dev0+04759f9 Reference Guide" href="../index.html" >
+    <link rel="up" title="Integration and ODEs (scipy.integrate)" href="../integrate.html" >
+    <link rel="next" title="scipy.integrate.RK45.dense_output" href="scipy.integrate.RK45.dense_output.html" >
+    <link rel="prev" title="scipy.integrate.RK23.step" href="scipy.integrate.RK23.step.html" > 
+  </head>
+  <body>
+
+  <div class="container">
+    <div class="header">
+    </div>
+  </div>
+
+
+    <div class="container">
+      <div class="main">
+        
+	<div class="row-fluid">
+	  <div class="span12">
+	    <div class="spc-navbar">
+              
+    <ul class="nav nav-pills pull-left">
+	
+        <li class="active"><a href="../index.html">SciPy v1.1.0.dev0+04759f9 Reference Guide</a></li>
+	
+          <li class="active"><a href="../integrate.html" accesskey="U">Integration and ODEs (<code class="docutils literal"><span class="pre">scipy.integrate</span></code>)</a></li> 
+    </ul>
+              
+              
+    <ul class="nav nav-pills pull-right">
+      <li class="active">
+        <a href="../genindex.html" title="General Index"
+           accesskey="I">index</a>
+      </li>
+      <li class="active">
+        <a href="../py-modindex.html" title="Python Module Index"
+           >modules</a>
+      </li>
+      <li class="active">
+        <a href="scipy.integrate.RK45.dense_output.html" title="scipy.integrate.RK45.dense_output"
+           accesskey="N">next</a>
+      </li>
+      <li class="active">
+        <a href="scipy.integrate.RK23.step.html" title="scipy.integrate.RK23.step"
+           accesskey="P">previous</a>
+      </li>
+    </ul>
+              
+	    </div>
+	  </div>
+	</div>
+        
+
+	<div class="row-fluid">
+      <div class="spc-rightsidebar span3">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../index.html">
+              <img class="logo" src="../_static/scipyshiny_small.png" alt="Logo">
+            </a></p>
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="scipy.integrate.RK23.step.html"
+                        title="previous chapter">scipy.integrate.RK23.step</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="scipy.integrate.RK45.dense_output.html"
+                        title="next chapter">scipy.integrate.RK45.dense_output</a></p>
+
+
+        </div>
+      </div>
+          <div class="span9">
+            
+        <div class="bodywrapper">
+          <div class="body" id="spc-section-body">
+            
+  <div class="section" id="scipy-integrate-rk45">
+<h1>scipy.integrate.RK45<a class="headerlink" href="#scipy-integrate-rk45" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="scipy.integrate.RK45">
+<em class="property">class </em><code class="descclassname">scipy.integrate.</code><code class="descname">RK45</code><span class="sig-paren">(</span><em>fun</em>, <em>t0</em>, <em>y0</em>, <em>t_bound</em>, <em>max_step=inf</em>, <em>rtol=0.001</em>, <em>atol=1e-06</em>, <em>vectorized=False</em>, <em>**extraneous</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/scipy/scipy/blob/04759f9/scipy/integrate/_ivp/rk.py#L254-L355"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#scipy.integrate.RK45" title="Permalink to this definition">¶</a></dt>
+<dd><p>Explicit Runge-Kutta method of order 5(4).</p>
+<p>The Dormand-Prince pair of formulas is used <a class="reference internal" href="#r59" id="id1">[R59]</a>. The error is controlled
+assuming 4th order accuracy, but steps are taken using a 5th
+oder accurate formula (local extrapolation is done). A quartic
+interpolation polynomial is used for the dense output <a class="reference internal" href="#r60" id="id2">[R60]</a>.</p>
+<p>Can be applied in a complex domain.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>fun</strong> : callable</p>
+<blockquote>
+<div><p>Right-hand side of the system. The calling signature is <code class="docutils literal"><span class="pre">fun(t,</span> <span class="pre">y)</span></code>.
+Here <code class="docutils literal"><span class="pre">t</span></code> is a scalar and there are two options for ndarray <code class="docutils literal"><span class="pre">y</span></code>.
+It can either have shape (n,), then <code class="docutils literal"><span class="pre">fun</span></code> must return array_like with
+shape (n,). Or alternatively it can have shape (n, k), then <code class="docutils literal"><span class="pre">fun</span></code>
+must return array_like with shape (n, k), i.e. each column
+corresponds to a single column in <code class="docutils literal"><span class="pre">y</span></code>. The choice between the two
+options is determined by <em class="xref py py-obj">vectorized</em> argument (see below). The
+vectorized implementation allows faster approximation of the Jacobian
+by finite differences.</p>
+</div></blockquote>
+<p><strong>t0</strong> : float</p>
+<blockquote>
+<div><p>Initial value of the independent variable.</p>
+</div></blockquote>
+<p><strong>y0</strong> : array_like, shape (n,)</p>
+<blockquote>
+<div><p>Initial values of the dependent variable.</p>
+</div></blockquote>
+<p><strong>t_bound</strong> : float</p>
+<blockquote>
+<div><p>Boundary time — the integration won’t continue beyond it. It also
+determines the direction of the integration.</p>
+</div></blockquote>
+<p><strong>max_step</strong> : float, optional</p>
+<blockquote>
+<div><p>Maximum allowed step size. Default is np.inf, i.e. the step is not
+bounded and determined solely by the solver.</p>
+</div></blockquote>
+<p><strong>rtol, atol</strong> : float and array_like, optional</p>
+<blockquote>
+<div><p>Relative and absolute tolerances. The solver keeps the local error
+estimates less than <code class="docutils literal"><span class="pre">atol</span> <span class="pre">+</span> <span class="pre">rtol</span> <span class="pre">*</span> <span class="pre">abs(y)</span></code>. Here <em class="xref py py-obj">rtol</em> controls a
+relative accuracy (number of correct digits). But if a component of <em class="xref py py-obj">y</em>
+is approximately below <em class="xref py py-obj">atol</em> then the error only needs to fall within
+the same <em class="xref py py-obj">atol</em> threshold, and the number of correct digits is not
+guaranteed. If components of y have different scales, it might be
+beneficial to set different <em class="xref py py-obj">atol</em> values for different components by
+passing array_like with shape (n,) for <em class="xref py py-obj">atol</em>. Default values are
+1e-3 for <em class="xref py py-obj">rtol</em> and 1e-6 for <em class="xref py py-obj">atol</em>.</p>
+</div></blockquote>
+<p><strong>vectorized</strong> : bool, optional</p>
+<blockquote class="last">
+<div><p>Whether <em class="xref py py-obj">fun</em> is implemented in a vectorized fashion. Default is False.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">References</p>
+<table class="docutils citation" frame="void" id="r59" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[R59]</td><td><em>(<a class="fn-backref" href="#id1">1</a>, <a class="fn-backref" href="#id3">2</a>)</em> J. R. Dormand, P. J. Prince, “A family of embedded Runge-Kutta
+formulae”, Journal of Computational and Applied Mathematics, Vol. 6,
+No. 1, pp. 19-26, 1980.</td></tr>
+</tbody>
+</table>
+<table class="docutils citation" frame="void" id="r60" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[R60]</td><td><em>(<a class="fn-backref" href="#id2">1</a>, <a class="fn-backref" href="#id4">2</a>)</em> L. W. Shampine, “Some Practical Runge-Kutta Formulas”, Mathematics
+of Computation,, Vol. 46, No. 173, pp. 135-150, 1986.</td></tr>
+</tbody>
+</table>
+<p class="rubric">Attributes</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="11%" />
+<col width="89%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td>n</td>
+<td>(int) Number of equations.</td>
+</tr>
+<tr class="row-even"><td>status</td>
+<td>(string) Current status of the solver: ‘running’, ‘finished’ or ‘failed’.</td>
+</tr>
+<tr class="row-odd"><td>t_bound</td>
+<td>(float) Boundary time.</td>
+</tr>
+<tr class="row-even"><td>direction</td>
+<td>(float) Integration direction: +1 or -1.</td>
+</tr>
+<tr class="row-odd"><td>t</td>
+<td>(float) Current time.</td>
+</tr>
+<tr class="row-even"><td>y</td>
+<td>(ndarray) Current state.</td>
+</tr>
+<tr class="row-odd"><td>t_old</td>
+<td>(float) Previous time. None if no steps were made yet.</td>
+</tr>
+<tr class="row-even"><td>step_size</td>
+<td>(float) Size of the last successful step. None if no steps were made yet.</td>
+</tr>
+<tr class="row-odd"><td>nfev</td>
+<td>(int) Number of the system’s rhs evaluations.</td>
+</tr>
+<tr class="row-even"><td>njev</td>
+<td>(int) Number of the Jacobian evaluations.</td>
+</tr>
+<tr class="row-odd"><td>nlu</td>
+<td>(int) Number of LU decompositions.</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Methods</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="scipy.integrate.RK45.dense_output.html#scipy.integrate.RK45.dense_output" title="scipy.integrate.RK45.dense_output"><code class="xref py py-obj docutils literal"><span class="pre">dense_output</span></code></a>()</td>
+<td>Compute a local interpolant over the last successful step.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="scipy.integrate.RK45.step.html#scipy.integrate.RK45.step" title="scipy.integrate.RK45.step"><code class="xref py py-obj docutils literal"><span class="pre">step</span></code></a>()</td>
+<td>Perform one integration step.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="container container-navbar-bottom">
+      <div class="spc-navbar">
+        
+      </div>
+    </div>
+    <div class="container">
+    <div class="footer">
+    <div class="row-fluid">
+    <ul class="inline pull-left">
+      <li>
+        &copy; Copyright 2008-2016, The Scipy community.
+      </li>
+      <li>
+      Last updated on Sep 20, 2017.
+      </li>
+      <li>
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.6.3.
+      </li>
+    </ul>
+    </div>
+    </div>
+    </div>
+  </body>
+</html>

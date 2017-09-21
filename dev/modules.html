@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8">
+    
+    <title>Module-Specific Instructions &mdash; SciPy v1.1.0.dev0+04759f9 Reference Guide</title>
+    
+    <link rel="stylesheet" type="text/css" href="../_static/css/spc-bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="../_static/css/spc-extend.css">
+    <link rel="stylesheet" href="../_static/scipy.css" type="text/css" >
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" >
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.1.0.dev0+04759f9',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  false
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/scipy-mathjax/MathJax.js?config=scipy-mathjax"></script>
+    <script type="text/javascript" src="../_static/js/copybutton.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" >
+    <link rel="search" title="Search" href="../search.html" >
+    <link rel="top" title="SciPy v1.1.0.dev0+04759f9 Reference Guide" href="../index.html" > 
+  </head>
+  <body>
+
+  <div class="container">
+    <div class="header">
+    </div>
+  </div>
+
+
+    <div class="container">
+      <div class="main">
+        
+	<div class="row-fluid">
+	  <div class="span12">
+	    <div class="spc-navbar">
+              
+    <ul class="nav nav-pills pull-left">
+	
+        <li class="active"><a href="../index.html">SciPy v1.1.0.dev0+04759f9 Reference Guide</a></li>
+	 
+    </ul>
+              
+              
+    <ul class="nav nav-pills pull-right">
+      <li class="active">
+        <a href="../genindex.html" title="General Index"
+           accesskey="I">index</a>
+      </li>
+      <li class="active">
+        <a href="../py-modindex.html" title="Python Module Index"
+           >modules</a>
+      </li>
+    </ul>
+              
+	    </div>
+	  </div>
+	</div>
+        
+
+	<div class="row-fluid">
+      <div class="spc-rightsidebar span3">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../index.html">
+              <img class="logo" src="../_static/scipyshiny_small.png" alt="Logo">
+            </a></p>
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Module-Specific Instructions</a><ul>
+<li><a class="reference internal" href="#scipy-special"><code class="docutils literal"><span class="pre">scipy.special</span></code></a></li>
+</ul>
+</li>
+</ul>
+
+
+
+        </div>
+      </div>
+          <div class="span9">
+            
+        <div class="bodywrapper">
+          <div class="body" id="spc-section-body">
+            
+  <div class="section" id="module-specific-instructions">
+<h1>Module-Specific Instructions<a class="headerlink" href="#module-specific-instructions" title="Permalink to this headline">¶</a></h1>
+<p>Some SciPy modules have specific development workflows that it is
+useful to be aware of while contributing.</p>
+<div class="section" id="scipy-special">
+<h2><code class="docutils literal"><span class="pre">scipy.special</span></code><a class="headerlink" href="#scipy-special" title="Permalink to this headline">¶</a></h2>
+<p>Many of the functions in <code class="docutils literal"><span class="pre">special</span></code> are vectorized versions of scalar
+functions. The scalar functions are written by hand and the necessary
+loops for vectorization are generated automatically. This section
+discusses the steps necessary to add a new vectorized special
+function.</p>
+<p>The first step in adding a new vectorized function is writing the
+corresponding scalar function. This can be done in Cython, C, C++, or
+Fortran. If starting from scratch then Cython should be preferred
+because the code is easier to maintain for developers only familiar
+with Python. If the primary code is in Fortran then it is necessary to
+write a C wrapper around the code; for examples of such wrappers see
+<code class="docutils literal"><span class="pre">specfun_wrappers.c</span></code>.</p>
+<p>After implementing the scalar function, register the new function by
+adding a line to the <code class="docutils literal"><span class="pre">FUNC</span></code> string in <code class="docutils literal"><span class="pre">generate_ufuncs.py</span></code>. The
+docstring for that file explains the format. Also add documentation
+for the new function by adding an entry to <code class="docutils literal"><span class="pre">add_newdocs.py</span></code>; look in
+the file for examples.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="container container-navbar-bottom">
+      <div class="spc-navbar">
+        
+      </div>
+    </div>
+    <div class="container">
+    <div class="footer">
+    <div class="row-fluid">
+    <ul class="inline pull-left">
+      <li>
+        &copy; Copyright 2008-2016, The Scipy community.
+      </li>
+      <li>
+      Last updated on Sep 20, 2017.
+      </li>
+      <li>
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.6.3.
+      </li>
+    </ul>
+    </div>
+    </div>
+    </div>
+  </body>
+</html>
