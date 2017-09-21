@@ -49,7 +49,7 @@ values = F(*np.meshgrid(*points, indexing='ij'))
 
 x = np.random.uniform(1, 9, 4)
 
-# With the ``cubic`` interpolation method, gradient information will be
+# With the cubic interpolation method, gradient information will be
 # available:
 
 interp = RegularGridInterpolator(
@@ -65,7 +65,7 @@ dF(*x)
 interp.gradient(x)
 # array([  7.18989348,  10.53053703,  -1.6783302 ,  13.34046682])
 
-# The ``gradient`` method can conveniently be passed as an argument to any
+# The `gradient` method can conveniently be passed as an argument to any
 # procedure that requires gradient information, such as
 # ``scipy.optimize.fmin_bfgs``:
 
@@ -82,7 +82,7 @@ opt = fmin_bfgs(interp, x, fprime=interp.gradient)
 print(opt)
 # [ 5.234  2.128  5.531  0.574]
 
-# Finally, all four interpolation methods can be compared based on the task
+# All available interpolation methods can be compared based on the task
 # of fitting a course sampling to interpolate a finer representation:
 
 import numpy as np
@@ -102,13 +102,13 @@ true_values = F(ut, vt)
 pts = np.array([ut.ravel(), vt.ravel()]).T
 plt.figure()
 for i, method in enumerate(RGI.methods()):
-    plt.subplot(2, 4, i + 1)
+    plt.subplot(2, 3, i + 1)
     interp = RGI(fit_points, values, method=method)
     im = interp(pts).reshape(80, 80)
     plt.imshow(im, interpolation='nearest')
     plt.gca().axis('off')
     plt.title(method)
-plt.subplot(2, 4, 8)
+plt.subplot(2, 3, 6)
 plt.title("True values")
 plt.gca().axis('off')
 plt.gcf().subplots_adjust(left=0, right=1, bottom=0, top=1)
@@ -116,9 +116,9 @@ plt.tight_layout()
 plt.imshow(true_values, interpolation='nearest')
 plt.show()
 
-# As expected, the spline interpolations are closest to the
-# true values, though are more expensive to compute than with `linear` or
-# `nearest`.
+# As expected, the cubic and quintic spline interpolations are closer to the
+# true values, though are more expensive to compute than with linear or
+# nearest. The slinear interpolation also matches the linear interpolation.
 
 # The computed gradient fields can also be visualized:
 

@@ -4,7 +4,7 @@
   <head>
     <meta charset="utf-8">
     
-    <title>scipy.interpolate.RegularGridInterpolator &mdash; SciPy v1.1.0.dev0+04759f9 Reference Guide</title>
+    <title>scipy.interpolate.RegularGridInterpolator &mdash; SciPy v1.1.0.dev0+4e64658 Reference Guide</title>
     
     <link rel="stylesheet" type="text/css" href="../_static/css/spc-bootstrap.css">
     <link rel="stylesheet" type="text/css" href="../_static/css/spc-extend.css">
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '1.1.0.dev0+04759f9',
+        VERSION:     '1.1.0.dev0+4e64658',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  false
@@ -27,7 +27,7 @@
     <script type="text/javascript" src="../_static/js/copybutton.js"></script>
     <link rel="index" title="Index" href="../genindex.html" >
     <link rel="search" title="Search" href="../search.html" >
-    <link rel="top" title="SciPy v1.1.0.dev0+04759f9 Reference Guide" href="../index.html" >
+    <link rel="top" title="SciPy v1.1.0.dev0+4e64658 Reference Guide" href="../index.html" >
     <link rel="up" title="Interpolation (scipy.interpolate)" href="../interpolate.html" >
     <link rel="next" title="scipy.interpolate.RegularGridInterpolator.__call__" href="scipy.interpolate.RegularGridInterpolator.__call__.html" >
     <link rel="prev" title="scipy.interpolate.interpn" href="scipy.interpolate.interpn.html" > 
@@ -49,7 +49,7 @@
               
     <ul class="nav nav-pills pull-left">
 	
-        <li class="active"><a href="../index.html">SciPy v1.1.0.dev0+04759f9 Reference Guide</a></li>
+        <li class="active"><a href="../index.html">SciPy v1.1.0.dev0+4e64658 Reference Guide</a></li>
 	
           <li class="active"><a href="../interpolate.html" accesskey="U">Interpolation (<code class="docutils literal"><span class="pre">scipy.interpolate</span></code>)</a></li> 
     </ul>
@@ -104,13 +104,13 @@
 <h1>scipy.interpolate.RegularGridInterpolator<a class="headerlink" href="#scipy-interpolate-regulargridinterpolator" title="Permalink to this headline">¶</a></h1>
 <dl class="class">
 <dt id="scipy.interpolate.RegularGridInterpolator">
-<em class="property">class </em><code class="descclassname">scipy.interpolate.</code><code class="descname">RegularGridInterpolator</code><span class="sig-paren">(</span><em>points</em>, <em>values</em>, <em>method='linear'</em>, <em>bounds_error=True</em>, <em>fill_value=nan</em>, <em>spline_dim_error=True</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/scipy/scipy/blob/04759f9/scipy/interpolate/interpolate.py#L2280-L2920"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#scipy.interpolate.RegularGridInterpolator" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">scipy.interpolate.</code><code class="descname">RegularGridInterpolator</code><span class="sig-paren">(</span><em>points</em>, <em>values</em>, <em>method='linear'</em>, <em>bounds_error=True</em>, <em>fill_value=nan</em>, <em>spline_dim_error=True</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/scipy/scipy/blob/4e64658/scipy/interpolate/interpolate.py#L2276-L2905"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#scipy.interpolate.RegularGridInterpolator" title="Permalink to this definition">¶</a></dt>
 <dd><p>Interpolation on a regular grid in arbitrary dimensions.</p>
 <p>The data must be defined on a regular grid; the grid spacing however may be
 uneven. Linear, nearest-neighbour, and third through fifth order spline
 interpolation are supported. After setting up the interpolator object, the
-interpolation method (<em>nearest</em>, <em>linear</em>, <em>slinear</em>, <em>quadratic</em>, <em>cubic</em>,
-<em>quartic</em>, <em>quintic</em>) may be chosen at each evaluation. Additionally,
+interpolation method (<em>nearest</em>, <em>linear</em>, <em>slinear</em>, <em>cubic</em>, and
+<em>quintic</em>) may be chosen at each evaluation. Additionally,
 gradients are provided for the spline interpolation methods.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -127,9 +127,8 @@ gradients are provided for the spline interpolation methods.</p>
 <p><strong>method</strong> : str, optional</p>
 <blockquote>
 <div><p>The method of interpolation to perform. Supported are ‘nearest’,
-‘linear’, ‘slinear’, ‘quadratic’, ‘cubic’, ‘quartic’, and
-‘quintic’. This parameter will become the default for the object’s
-<code class="docutils literal"><span class="pre">__call__</span></code> method. Default is “linear”.</p>
+‘linear’, ‘slinear’, ‘cubic’, and ‘quintic’. This parameter will become
+the default for the object’s <code class="docutils literal"><span class="pre">__call__</span></code> method. Default is “linear”.</p>
 </div></blockquote>
 <p><strong>bounds_error</strong> : bool, optional</p>
 <blockquote>
@@ -166,10 +165,10 @@ regular grid structure.</p>
 <p>If any of <em class="xref py py-obj">points</em> have a dimension of size 1, linear interpolation will
 return an array of <em class="xref py py-obj">nan</em> values. Nearest-neighbor interpolation will work
 as usual in this case.</p>
-<p>The ‘slinear’, ‘quadratic’, ‘cubic’, ‘quartic’, ‘quintic’ methods
-are all spline-based interpolators. These make use of <a class="reference internal" href="scipy.interpolate.UnivariateSpline.html#scipy.interpolate.UnivariateSpline" title="scipy.interpolate.UnivariateSpline"><code class="xref py py-obj docutils literal"><span class="pre">UnivariateSpline</span></code></a> in
-each dimension. Use of the spline interpolations allows for getting
-gradient values via the <code class="docutils literal"><span class="pre">gradient</span></code> method.</p>
+<p>The ‘slinear’, ‘cubic’ and ‘quintic’ methods
+are all spline-based interpolators. These make use of <code class="docutils literal"><span class="pre">BSpline</span></code>
+interpolators in each dimension. Use of the spline interpolations
+allows for getting gradient values via the <code class="docutils literal"><span class="pre">gradient</span></code> method.</p>
 <p>Interpolation with the spline methods is expectedly slower than ‘linear’ or
 ‘nearest’. They use a different separable tensor product interpolation
 strategy, and are best used when the fitted data (the points and values
@@ -229,7 +228,7 @@ demonstration, and create grid sample axes with a variety of sizes:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>With the <code class="docutils literal"><span class="pre">cubic</span></code> interpolation method, gradient information will be
+<p>With the cubic interpolation method, gradient information will be
 available:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">interp</span> <span class="o">=</span> <span class="n">RegularGridInterpolator</span><span class="p">(</span>
 <span class="gp">... </span>    <span class="n">points</span><span class="p">,</span> <span class="n">values</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s2">&quot;cubic&quot;</span><span class="p">,</span> <span class="n">bounds_error</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">fill_value</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
@@ -245,7 +244,7 @@ function and its gradient:</p>
 <span class="go">array([  7.18989348,  10.53053703,  -1.6783302 ,  13.34046682])</span>
 </pre></div>
 </div>
-<p>The <code class="docutils literal"><span class="pre">gradient</span></code> method can conveniently be passed as an argument to any
+<p>The <a class="reference internal" href="scipy.interpolate.RegularGridInterpolator.gradient.html#scipy.interpolate.RegularGridInterpolator.gradient" title="scipy.interpolate.RegularGridInterpolator.gradient"><code class="xref py py-obj docutils literal"><span class="pre">gradient</span></code></a> method can conveniently be passed as an argument to any
 procedure that requires gradient information, such as
 <code class="docutils literal"><span class="pre">scipy.optimize.fmin_bfgs</span></code>:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">opt</span> <span class="o">=</span> <span class="n">fmin_bfgs</span><span class="p">(</span><span class="n">interp</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">fprime</span><span class="o">=</span><span class="n">interp</span><span class="o">.</span><span class="n">gradient</span><span class="p">)</span>
@@ -262,7 +261,7 @@ computed minimum matches the known solution very well:</p>
 <span class="go">[ 5.234  2.128  5.531  0.574]</span>
 </pre></div>
 </div>
-<p>Finally, all four interpolation methods can be compared based on the task
+<p>All available interpolation methods can be compared based on the task
 of fitting a course sampling to interpolate a finer representation:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">scipy.interpolate</span> <span class="k">import</span> <span class="n">RegularGridInterpolator</span> <span class="k">as</span> <span class="n">RGI</span>
@@ -281,13 +280,13 @@ of fitting a course sampling to interpolate a finer representation:</p>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">pts</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">ut</span><span class="o">.</span><span class="n">ravel</span><span class="p">(),</span> <span class="n">vt</span><span class="o">.</span><span class="n">ravel</span><span class="p">()])</span><span class="o">.</span><span class="n">T</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">method</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">RGI</span><span class="o">.</span><span class="n">methods</span><span class="p">()):</span>
-<span class="gp">... </span>    <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+<span class="gp">... </span>    <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
 <span class="gp">... </span>    <span class="n">interp</span> <span class="o">=</span> <span class="n">RGI</span><span class="p">(</span><span class="n">fit_points</span><span class="p">,</span> <span class="n">values</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="n">method</span><span class="p">)</span>
 <span class="gp">... </span>    <span class="n">im</span> <span class="o">=</span> <span class="n">interp</span><span class="p">(</span><span class="n">pts</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">80</span><span class="p">,</span> <span class="mi">80</span><span class="p">)</span>
 <span class="gp">... </span>    <span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">im</span><span class="p">,</span> <span class="n">interpolation</span><span class="o">=</span><span class="s1">&#39;nearest&#39;</span><span class="p">)</span>
 <span class="gp">... </span>    <span class="n">plt</span><span class="o">.</span><span class="n">gca</span><span class="p">()</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s1">&#39;off&#39;</span><span class="p">)</span>
 <span class="gp">... </span>    <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="n">method</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">8</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">6</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;True values&quot;</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">gca</span><span class="p">()</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s1">&#39;off&#39;</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">gcf</span><span class="p">()</span><span class="o">.</span><span class="n">subplots_adjust</span><span class="p">(</span><span class="n">left</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">right</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">bottom</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">top</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
@@ -299,9 +298,9 @@ of fitting a course sampling to interpolate a finer representation:</p>
 <div class="figure">
 <img alt="../_images/scipy-interpolate-RegularGridInterpolator-1_00_00.png" src="../_images/scipy-interpolate-RegularGridInterpolator-1_00_00.png" />
 </div>
-<p>As expected, the spline interpolations are closest to the
-true values, though are more expensive to compute than with <em class="xref py py-obj">linear</em> or
-<em class="xref py py-obj">nearest</em>.</p>
+<p>As expected, the cubic and quintic spline interpolations are closer to the
+true values, though are more expensive to compute than with linear or
+nearest. The slinear interpolation also matches the linear interpolation.</p>
 <p>The computed gradient fields can also be visualized:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">scipy.interpolate</span> <span class="k">import</span> <span class="n">RegularGridInterpolator</span> <span class="k">as</span> <span class="n">RGI</span>
@@ -410,7 +409,7 @@ done the same way:</p>
         &copy; Copyright 2008-2016, The Scipy community.
       </li>
       <li>
-      Last updated on Sep 20, 2017.
+      Last updated on Sep 21, 2017.
       </li>
       <li>
       Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.6.3.
